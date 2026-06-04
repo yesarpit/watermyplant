@@ -656,3 +656,21 @@ footer {
         display: none;
     }
 }
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 15px 3%;
+    }
+    .logo {
+        font-size: 1.15rem;
+    }
+    .leaf-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 5px;
+    }
+    .nav-cta {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
