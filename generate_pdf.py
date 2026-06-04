@@ -1,5 +1,5 @@
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.colors import HexColor
 from reportlab.lib.enums import TA_CENTER
@@ -59,6 +59,14 @@ def generate_pdf(filename):
     # Introduction
     story.append(Paragraph("Caring for indoor and balcony plants in India requires adapting to extreme seasons. From scorching 45°C summers to heavy, humid monsoons, your plants go through intense stress. Here are our unique tips for the upcoming years.", normal_style))
     
+    story.append(Spacer(1, 20))
+    # Image 1 (Hero image used previously or the new one)
+    try:
+        img1 = Image('images/hero.png', width=400, height=300)
+        story.append(img1)
+    except:
+        pass
+
     # Tip 1
     story.append(Paragraph("1. The 'Monsoon Fast'", heading_style))
     story.append(Paragraph("During the Indian monsoon, ambient humidity skyrockets. Many plant parents continue their summer watering schedule, which leads to immediate root rot. The trick is to implement a 'Monsoon Fast'. For indoor plants like Monsteras and ZZ plants, cut watering by 70%. Let the soil dry out completely to the bottom of the pot. The plants will absorb enough moisture from the air to survive.", normal_style))
@@ -67,9 +75,17 @@ def generate_pdf(filename):
     story.append(Paragraph("2. The DIY Neem Oil Emulsion", heading_style))
     story.append(Paragraph("Mealybugs love the Indian heat and humidity. Instead of harsh chemicals, make a true emulsion. Mix 1 teaspoon of pure cold-pressed Neem Oil with 1/2 teaspoon of mild liquid dish soap FIRST. Mix them until they form a milky paste, THEN add 1 liter of warm water. Spraying this in the early morning prevents leaf burn and suffocates pests organically.", normal_style))
 
+    story.append(Spacer(1, 20))
+
     # Tip 3
     story.append(Paragraph("3. Terracotta vs. Plastic in the Indian Heat", heading_style))
     story.append(Paragraph("Terracotta pots are a lifesaver in the summer because they breathe, preventing roots from boiling in wet soil. However, during the monsoon, terracotta absorbs ambient moisture and can grow algae, keeping the soil constantly wet. If you use terracotta, ensure it is kept in a well-ventilated area with a fan during the rainy season to prevent mold.", normal_style))
+
+    try:
+        img2 = Image('images/pdf_terracotta.png', width=400, height=300)
+        story.append(img2)
+    except:
+        pass
 
     story.append(Spacer(1, 40))
 
