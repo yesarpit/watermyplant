@@ -103,6 +103,10 @@ def generate_pdf(filename):
     # PAGE 4: Chapter 2
     story.append(Paragraph("Chapter 2: The Monsoon Fast", chapter_style))
     story.append(Paragraph("During the Indian monsoon, ambient humidity skyrockets. Many plant parents continue their summer watering schedule, which leads to immediate root rot. The trick is to implement a 'Monsoon Fast'.", normal_style))
+    try:
+        story.append(Image('images/pdf_monsoon.png', width=300, height=225))
+    except:
+        pass
     story.append(Paragraph("For indoor plants like Monsteras and ZZ plants, cut watering by 70%. Let the soil dry out completely to the bottom of the pot. The plants will absorb enough moisture from the air to survive. Check the drainage holes of your pots daily to ensure no water is logging at the bottom.", normal_style))
     story.append(Paragraph("It is also crucial to move plants away from direct rain exposure if they are prone to fungal infections. Succulents, in particular, should be brought entirely indoors or kept under a shed during July and August.", normal_style))
     story.append(Spacer(1, 350))
@@ -131,6 +135,10 @@ def generate_pdf(filename):
     # PAGE 7: Chapter 5
     story.append(Paragraph("Chapter 5: DIY Pest Control", chapter_style))
     story.append(Paragraph("Mealybugs and spider mites love the Indian heat and humidity. Instead of harsh chemical pesticides, you can make a true organic emulsion at home.", normal_style))
+    try:
+        story.append(Image('images/pdf_neem.png', width=300, height=225))
+    except:
+        pass
     story.append(Paragraph("The Neem Oil Recipe: Mix 1 teaspoon of pure cold-pressed Neem Oil with 1/2 teaspoon of mild liquid dish soap FIRST. Mix them until they form a milky paste, THEN add 1 liter of warm water. Spraying this in the early morning prevents leaf burn and suffocates pests organically. Repeat every 7 days until the infestation clears.", normal_style))
     story.append(Spacer(1, 350))
     story.append(PageBreak())
@@ -145,6 +153,10 @@ def generate_pdf(filename):
     # PAGE 9: Chapter 7 & 8
     story.append(Paragraph("Chapter 7: The Perfect Indian Potting Mix", chapter_style))
     story.append(Paragraph("Never use plain red soil (laal mitti) directly from a nursery for indoor plants. It compacts into a brick when dry and turns to mud when wet.", normal_style))
+    try:
+        story.append(Image('images/pdf_soil.png', width=300, height=225))
+    except:
+        pass
     story.append(Paragraph("A good standard mix for Indian indoor plants is: 40% Coco Peat (for moisture retention), 30% Perlite or Pumice (for aeration), 20% Vermicompost (for nutrients), and 10% Garden Soil. This ensures water drains out within 10 seconds of watering.", normal_style))
     
     story.append(Paragraph("Chapter 8: Managing Extreme Coastal Humidity", chapter_style))
