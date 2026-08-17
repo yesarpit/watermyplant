@@ -1,0 +1,28 @@
+{
+  "_instructions": "Update lastHeartbeat, status, currentTask, blockers, and nextCheckInMinutes each time you check in. Check managerInstructions.text for a pending directive (acknowledgedAt null means unread) and ack it once handled. Full spec: .meta-manager/PROTOCOL.md",
+  "project": "Watermyplants",
+  "managedBy": "meta-manager",
+  "facets": [],
+  "goal": "",
+  "registeredAt": "2026-08-17T10:20:40.032Z",
+  "lastHeartbeat": "2026-08-17T10:21:42.692832+00:00",
+  "status": "done",
+  "currentTask": "Finished updating canonicals and sitemap for www redirect fix",
+  "progressNotes": "Applied canonical updates to all HTML files, updated sitemap and robots.txt, and validated.",
+  "blockers": [],
+  "nextCheckInMinutes": 0,
+  "detail": "Completed SEO redirect fix",
+  "history": [
+    {
+      "ts": "2026-08-17T10:21:42.692832+00:00",
+      "status": "done",
+      "note": "Finished updating canonicals and sitemap"
+    }
+  ],
+  "managerInstructions": {
+    "text": null,
+    "issuedAt": null,
+    "acknowledgedAt": null
+  },
+  "lastCheck": null
+}
