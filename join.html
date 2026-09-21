@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Jagajyothi Layout Plant-Care Pilot | watermyplant.in</title>
+    <meta name="description" content="Going away? Join the Bangalore (Jagajyothi Layout, 560056) plant-watering pilot. Opt in on WhatsApp - we only message you if you message us first.">
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="842bdf3b-6038-4ca8-a09e-0af84906dc20"></script>
+    <style>
+        .join { max-width: 640px; margin: 0 auto; padding: 40px 16px 60px; }
+        .join h1 { font-family: 'Playfair Display', serif; margin-bottom: 12px; }
+        .join label { display: block; margin: 18px 0 6px; font-weight: 600; }
+        .join input, .join select { width: 100%; padding: 12px; font: inherit; border: 1px solid #c9d6c0; border-radius: 8px; }
+        .join .consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 20px; font-weight: 400; }
+        .join .consent input { width: auto; margin-top: 4px; }
+        .join button { margin-top: 24px; width: 100%; cursor: pointer; border: 0; }
+        .join .fine { font-size: .85rem; color: var(--text-light); margin-top: 16px; }
+    </style>
+</head>
+<body>
+<main class="join">
+    <h1>Going away? Your plants stay happy.</h1>
+    <p>We're piloting a plant-watering service in <strong>Jagajyothi Layout, Bangalore (560056)</strong>
+       with a trusted local gardener. Tell us a bit and continue on WhatsApp - we only reply to messages you send.</p>
+    <form id="optin">
+        <label for="locality">Your locality / pincode</label>
+        <input id="locality" required placeholder="e.g. Jagajyothi Layout, 560056">
+        <label for="plants">Roughly how many pots/plants?</label>
+        <select id="plants">
+            <option value="1-10">1-10</option><option value="11-30">11-30</option><option value="30+">30+</option>
+        </select>
+        <label for="when">When do you next travel?</label>
+        <select id="when">
+            <option value="within-2-weeks">Within 2 weeks</option><option value="within-2-months">Within 2 months</option>
+            <option value="regularly">Regularly / ongoing</option><option value="not-sure">Not sure yet</option>
+        </select>
+        <label for="price">What would you pay per visit?</label>
+        <select id="price">
+            <option value="under-30">Under ₹30</option><option value="30-60">₹30-60</option>
+            <option value="60-100">₹60-100</option><option value="100+">₹100+</option>
+        </select>
+        <label class="consent"><input type="checkbox" id="consent" required>
+            I agree to be contacted on WhatsApp about this pilot. I can say STOP any time.</label>
+        <button type="submit" class="cta-button primary-cta" data-umami-event="optin-click">Continue on WhatsApp</button>
+    </form>
+    <p class="fine">No payment now. Your details go only into a WhatsApp message you send yourself.</p>
+</main>
+<script>
+    var ref = (new URLSearchParams(location.search).get('ref') || 'direct').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'direct';
+    document.getElementById('optin').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var v = function (id) { return document.getElementById(id).value.trim(); };
+        var msg = 'Hi, I want to join the plant-care pilot.\n' +
+            'Locality: ' + v('locality') + '\nPlants: ' + v('plants') + '\nTravel: ' + v('when') +
+            '\nBudget/visit: ' + v('price') + '\nI agree to be contacted on WhatsApp. [ref:' + ref + ']';
+        if (window.umami) { try { umami.track('optin-submit', { ref: ref, locality: v('locality'), price: v('price') }); } catch (x) {} }
+        location.href = 'https://wa.me/918087404471?text=' + encodeURIComponent(msg);
+    });
+</script>
+</body>
+</html>
