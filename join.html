@@ -24,7 +24,7 @@
 <main class="join">
     <h1>Going away? Your plants stay happy.</h1>
     <p>We're piloting a plant-watering service in <strong>Jagajyothi Layout, Bangalore (560056)</strong>
-       with a trusted local gardener. Tell us a bit and continue on WhatsApp - we only reply to messages you send.</p>
+       and gauging interest before we start. Tell us a bit and continue on WhatsApp - we only reply to messages you send, and we haven't confirmed availability yet.</p>
     <form id="optin">
         <label for="locality">Your locality / pincode</label>
         <input id="locality" required placeholder="e.g. Jagajyothi Layout, 560056">
@@ -46,7 +46,7 @@
             I agree to be contacted on WhatsApp about this pilot. I can say STOP any time.</label>
         <button type="submit" class="cta-button primary-cta" data-umami-event="optin-click">Continue on WhatsApp</button>
     </form>
-    <p class="fine">No payment now. Your details go only into a WhatsApp message you send yourself.</p>
+    <p class="fine">No payment now. Your details go only into a WhatsApp message you send yourself. To opt out at any time, reply STOP and we will delete your details.</p>
 </main>
 <script>
     var ref = (new URLSearchParams(location.search).get('ref') || 'direct').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'direct';
@@ -56,7 +56,7 @@
         var msg = 'Hi, I want to join the plant-care pilot.\n' +
             'Locality: ' + v('locality') + '\nPlants: ' + v('plants') + '\nTravel: ' + v('when') +
             '\nBudget/visit: ' + v('price') + '\nI agree to be contacted on WhatsApp. [ref:' + ref + ']';
-        if (window.umami) { try { umami.track('optin-submit', { ref: ref, locality: v('locality'), price: v('price') }); } catch (x) {} }
+        if (window.umami) { try { umami.track('optin-submit', { ref: ref }); } catch (x) {} }
         location.href = 'https://wa.me/918087404471?text=' + encodeURIComponent(msg);
     });
 </script>

@@ -1,0 +1,8 @@
+ref_code,channel,owned_or_permitted,rules_checked,status
+own-site,watermyplant.in homepage link to /join.html,owned,n/a,ready
+own-wa-status,Founder WhatsApp status / broadcast to existing contacts who opted in,owned,n/a,ready
+own-insta,Founder's own social profile bio link,owned,n/a,ready-if-account-exists
+nextdoor-jl,Nextdoor / neighbourhood group post (Jagajyothi Layout),permitted-only,MUST read group rules; admin approval,founder-review
+rwa-jl,Apartment/RWA WhatsApp group via a resident,permitted-only,admin permission required,founder-review
+gmaps-gbp,Google Business Profile post,owned,needs founder login,founder-review
+partner-cards,Printed nursery cards (QR ?ref=nursery-N),physical,needs printing + nursery permission,founder-review
