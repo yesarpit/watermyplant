@@ -1,6 +1,7 @@
 ref_code,channel,owned_or_permitted,rules_checked,status
 own-site,watermyplant.in homepage banner link to /join.html,owned,n/a,live-2026-09-22
 own-blog-vacation,watermyplant.in blog-vacation-care.html inline link to /join.html,owned,n/a,live-2026-09-22
+own-locality-page,New jagajyothi-layout-plant-care.html service-area page CTA to /join.html; linked from homepage blog grid + blog-vacation-care.html,owned,n/a,live-2026-09-22
 own-wa-status,Founder WhatsApp status / broadcast to existing contacts who opted in,owned,n/a,ready
 own-insta,Founder's own social profile bio link,owned,n/a,ready-if-account-exists
 nextdoor-jl,Nextdoor / neighbourhood group post (Jagajyothi Layout),permitted-only,MUST read group rules; admin approval,founder-review
