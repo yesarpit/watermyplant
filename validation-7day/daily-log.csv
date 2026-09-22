@@ -1,1 +1,3 @@
 date,channel,ref_code,impressions,visits,whatsapp_opt_ins,qualified_opt_ins,locality_breakdown,median_stated_price_per_visit,paid_pilot_commitments,spend_inr,cost_per_qualified_optin,notes
+2026-09-22,own-site,own-site,pending,pending,0,0,n/a,n/a,0,0,n/a,"Day 1 of reset window. Homepage banner live (commit 76f1688, ~2026-09-22 deploy). Visits/impressions from Umami dashboard -- no API access this session, founder to pull umami.is figures or share an export for this log."
+2026-09-22,own-blog-vacation,own-blog-vacation,pending,pending,0,0,n/a,n/a,0,0,n/a,"Day 1 of reset window. blog-vacation-care.html inline CTA live (commit 76f1688). Same Umami access note as own-site row."
