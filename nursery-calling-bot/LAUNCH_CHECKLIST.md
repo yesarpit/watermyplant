@@ -1,7 +1,8 @@
 # Launch checklist: enquiry auto-calling
 
-**The only open launch blocker is a phone number** (Sarvam rental after KYC, or BYO). Everything
-else is either done or free and needs no number.
+**Technical POC: complete at ₹0** (`python3 demo.py`, 56 tests). Live launch needs a phone
+number, which is a founder decision under the zero-spend constraint: either connect an account the
+founder already owns, or explicitly lift the constraint. See FREE_PATHS.md. Nothing gets rented.
 
 ## A. Built and verified without a number (done 2026-09-23)
 
@@ -16,7 +17,10 @@ else is either done or free and needs no number.
 - [x] Structured logs: `runs/<id>.json` (state, offers, metrics, economics) + `runs/<id>.events.jsonl`
 - [x] WhatsApp handoff: priced customer draft (with the UPI step and STOP line) + gardener hold drafts, as wa.me links for a human to send
 - [x] Pricing: gardener rate + max(₹30, 20%) per visit, ₹99 minimum per booking
-- [x] Test suite: `python3 -m unittest discover -s tests`, 31 passing
+- [x] Test suite: `python3 -m unittest discover -s tests`, 56 passing (pipeline, intake, demo, Sarvam contract/errors)
+- [x] One-command demo: `python3 demo.py`, intake → mocked calls → event log, outcome, WhatsApp drafts, unit economics (byte-identical across runs)
+- [x] Sarvam adapter: request/response shape pinned to the published API reference; HTTP/network/malformed errors pause the run (resumable) instead of crashing
+- [x] Local intake endpoint `intake.py`: validates, rejects unknown fields and unsafe ids, caps body size, binds to 127.0.0.1
 - [x] Secrets: API keys only in the repo-root `.env` (gitignored); `sarvam.json`, the roster and runs are gitignored
 
 ## B. Free, needs founder account access (no card)
@@ -26,9 +30,9 @@ else is either done or free and needs no number.
 - [ ] Browser "Test agent" run of each agent: opt-out, Kannada speaker, no-price gardener
 - [ ] Decide the customer-facing fee wording (₹30/visit or 20%, ₹99 minimum)
 
-## C. The launch blocker
+## C. Live PSTN validation (founder review, separate from the POC)
 
-- [ ] **Phone number:** Sarvam → Deploy → Phone Numbers → Rent from Sarvam (individual KYC, wallet-paid), or connect Exotel/Vobiz. Put `connection_id` and `agent_phone_number` in `sarvam.json`
+- [ ] **Phone number:** decide between (a) connecting an Exotel/Vobiz/Twilio/Smartflo/Pulse/Intalk account the founder already owns (₹0 extra), or (b) explicitly lifting the zero-spend constraint. Then put `connection_id` and `agent_phone_number` in `sarvam.json`. Do not rent a number under the current constraint. See FREE_PATHS.md
 
 ## D. After the number (same day)
 

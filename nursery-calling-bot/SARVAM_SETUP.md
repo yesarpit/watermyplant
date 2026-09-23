@@ -1,13 +1,17 @@
 # Sarvam Voice Agents setup (primary provider)
 
 Sarvam is the primary provider. It was chosen by the founder on 2026-09-23 because it is Indian-built,
-has native Indian voices (English, Hindi and Kannada among 11 languages), and **rents Indian numbers
-with no credit card**. Number rental is paid from the Sarvam wallet after individual KYC. Retell
-stays in `providers.py` as a fallback.
+and has native Indian voices (English, Hindi and Kannada among 11 languages). Retell stays in
+`providers.py` as a fallback.
+
+> **Zero-spend constraint (2026-09-23):** do not rent a number or top up the wallet while the
+> zero-spend constraint holds. Renting is wallet-paid, so it is not free even without a card. Live
+> calls need either an existing BYO account (section 4) or an explicit change to the constraint.
+> See FREE_PATHS.md.
 
 Sarvam agents are built in the dashboard ([indus.sarvam.ai](https://indus.sarvam.ai), Build → Agents),
-not by API, so this file is the spec to copy in. Everything below is free to set up. You only spend
-money on real calls and a rented number.
+not by API, so this file is the spec to copy in. Sections 1–3 are free. Section 4, live calls,
+needs a number.
 
 ## 1. Account (free)
 
@@ -85,15 +89,17 @@ Kannada-only, wrong dates, a gardener with no price. Both run on free credits. M
 `./enquiry_pipeline.py --provider mock` and `python3 -m unittest discover -s tests` exercise
 everything around the calls.
 
-## 4. The one launch blocker: a phone number
+## 4. Live calls: a phone number (founder decision)
 
-Go to Deploy → Phone Numbers → Add Connection → **Rent from Sarvam** → Individual → complete KYC →
-Buy Number. There's no card: it is paid from the Sarvam wallet. Rentals last 30 days and auto-renew.
-The catalog shows the price, which isn't public, so check it before buying. Put the returned
-`connection_id` and number into `sarvam.json`.
+**Zero-spend option: bring your own.** If the founder already has an Exotel, Twilio, Vobiz, Smartflo,
+Pulse or Intalk account with a number, connect it under Deploy → Phone Numbers → Add Connection and
+put the returned `connection_id` and number into `sarvam.json`.
 
-Alternatively, **bring your own**: Exotel, Twilio, Vobiz, Smartflo, Pulse or Intalk (see
-ALTERNATIVES.md).
+**Only if the zero-spend constraint is explicitly lifted:** Add Connection → Rent from Sarvam →
+Individual → KYC → Buy Number. It is paid from the Sarvam wallet, rentals last 30 days and
+auto-renew, and the price appears only in the catalog.
+
+See FREE_PATHS.md for every option and its status.
 
 Then:
 

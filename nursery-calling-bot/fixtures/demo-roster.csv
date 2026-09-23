@@ -1,0 +1,8 @@
+name,phone,pincode,locality,lat,lng,status,source_id,notes
+Demo Nursery A,+919000000001,560056,Jagajyothi Layout,,,active,demo-1,synthetic
+Demo Gardener B,+919000000002,560056,Nagadevanahalli,,,active,demo-2,synthetic
+Demo Nursery C,+919000000003,560058,Peenya,,,active,demo-3,synthetic
+Demo Nursery D,+919000000004,560060,Kengeri,,,active,demo-4,synthetic
+Demo Gardener E,+919000000005,560068,Bommanahalli,,,active,demo-5,synthetic
+Demo Nursery F,+919000000006,560098,Rajarajeshwari Nagar,,,active,demo-6,synthetic
+Demo Paused G,+919000000007,560056,Jagajyothi Layout,,,paused,demo-7,synthetic; paused rows are never called

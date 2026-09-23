@@ -19,22 +19,32 @@ Gardeners only ever hear the area, never the customer's name, number or address.
 "don't call again", or whom the carrier reports as TRAI NDNC, goes on `do-not-call.txt` and is
 never dialled again.
 
-## Status (2026-09-23)
+## Status (2026-09-23): technical POC complete, at zero cost
 
 | Piece | State |
 |---|---|
-| Pipeline, mock provider, 31 tests | ✅ `python3 -m unittest discover -s tests` |
-| Sarvam adapter (primary) | written against the API docs and unit-tested; **not yet run live** |
-| Sarvam agents | spec ready in SARVAM_SETUP.md; build them in the dashboard (free) |
+| One-command demo: intake endpoint → mocked calls → event log, outcome, WhatsApp drafts, unit economics | ✅ `python3 demo.py` (deterministic) |
+| Pipeline, intake, Sarvam contract/error tests: 56 tests | ✅ `python3 -m unittest discover -s tests` |
+| Sarvam adapter (primary) | ✅ request/response shape pinned to Sarvam's published API reference by mocked contract tests; **not yet run live** |
+| Sarvam agents | spec ready in SARVAM_SETUP.md; building them needs a free Sarvam account (founder) |
 | Retell adapter + 2 agents (fallback) | agents exist; Retell needs a card for a number |
-| **Phone number** | **the only launch blocker.** Rent one from Sarvam (KYC, wallet, no card) or bring your own |
+| **Live PSTN validation** | **separate founder decision**: supply an existing compatible number/account, or explicitly lift the zero-spend constraint. No number is rented or bought. See FREE_PATHS.md |
 
-See PLAN.md for the goal and ranked next steps, LAUNCH_CHECKLIST.md for launch, UNIT_ECONOMICS.md
-for cost per enquiry, and ALTERNATIVES.md for cheaper and bring-your-own-number options.
+See POC_PLAN.md for what "done" means, PLAN.md for the goal and ranked next steps, FREE_PATHS.md
+for zero-spend test and bring-your-own-number options, LAUNCH_CHECKLIST.md for launch and
+UNIT_ECONOMICS.md for cost per enquiry.
 
 ## Usage
 
 ```bash
+# The whole flow in one command: no network, no account, no spend. Writes demo-output/summary.md
+python3 demo.py
+
+# Local intake endpoint (127.0.0.1 only): POST /enquiries validates and queues to queue/<id>.json
+./intake.py --port 8765
+curl -s localhost:8765/enquiries -d @fixtures/demo-enquiry.json   # -> 202 {"id": "demo-0001", ...}
+./enquiry_pipeline.py --provider mock --file queue/demo-0001.json
+
 # No calls, no spend: built-in happy-path mock, or a scripted scenario
 ./enquiry_pipeline.py --provider mock --name Ravi --phone 98xxxxxxxx --locality "Jagajyothi Layout" \
     --pincode 560056 --start 2026-10-02 --end 2026-10-06 --notes "20 pots, balcony" --consent whatsapp_enquiry
@@ -73,10 +83,14 @@ Result codes in `runs/<id>.json`:
 
 ## Files
 
+- `demo.py`: the one-command zero-cost demo; `fixtures/` holds its synthetic enquiry, roster and call script
+- `intake.py`: local enquiry intake endpoint (stdlib HTTP server)
 - `enquiry_pipeline.py`: the orchestrator (stdlib Python only)
 - `providers.py`: the `SarvamProvider`, `RetellProvider` and `MockProvider` adapters, all returning
   one outcome shape
 - `tests/test_pipeline.py`: provider-mocked end-to-end tests
+- `tests/test_sarvam_contract.py`: Sarvam request/response contract and error handling over a fake transport
+- `tests/test_intake_demo.py`: intake endpoint and demo (complete and deterministic output)
 - `unit_economics.py`: the funnel and cost model
 - `prompts/customer.md`, `prompts/gardener.md`: the agent scripts, shared by both providers
 - `SARVAM_SETUP.md`, `sarvam.example.json`: how to build the Sarvam agents, and the config
@@ -86,8 +100,9 @@ Result codes in `runs/<id>.json`:
 - `gardeners.example.csv`: the roster format. The real `gardeners.csv` holds third-party contact
   numbers and is gitignored. Set `status` to anything other than `active` to skip a row. Fill in
   `lat`/`lng` to rank by real distance.
-- `runs/`, `do-not-call.txt`: call results and opt-outs, both gitignored because they hold
-  personal details.
+- `runs/`, `queue/`, `do-not-call.txt`: call results, queued enquiries and opt-outs, all gitignored
+  because they hold personal details. `demo-output/` is gitignored too; it is regenerated on
+  every run.
 
 Keys live only in the repo-root `.env`, which is gitignored: `SARVAM_API_KEY`, and
 `API_KEY_RETELL` for the fallback.

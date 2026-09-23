@@ -8,7 +8,7 @@ and returns the same provider-neutral outcome:
   {"call_id", "status", "minutes", "cost_inr", "summary", "data", "recording_url", "failure_reason"}
   status: connected | no_answer | busy | voicemail | failed | ndnc
 
-SarvamProvider  -- primary. Sarvam Voice Agents (Indian voices, Indian numbers rented without a card).
+SarvamProvider  -- primary. Sarvam Voice Agents (Indian voices; number = BYO connection, see FREE_PATHS.md).
 RetellProvider  -- fallback, kept for comparison.
 MockProvider    -- scripted outcomes, so the whole pipeline can be tested with no number and no spend.
 """
@@ -99,13 +99,23 @@ class SarvamProvider:
         req = urllib.request.Request(url, method=method,
                                      data=json.dumps(body).encode() if body is not None else None,
                                      headers={"X-API-Key": self.key, "Content-Type": "application/json"})
+        where = f"Sarvam {method} {url.split('/api/')[1][:60]}"
         try:
             with urllib.request.urlopen(req, timeout=30) as r:
                 raw = r.read()
-                return json.loads(raw) if raw else {}
-        except (urllib.error.URLError, TimeoutError) as e:
-            detail = e.read().decode()[:500] if isinstance(e, urllib.error.HTTPError) else str(e)
-            raise ProviderError(f"Sarvam {method} {url.split('/api/')[1][:60]} -> {detail}") from None
+        except urllib.error.HTTPError as e:
+            with e:
+                detail = e.read().decode(errors="replace")[:500]
+            raise ProviderError(f"{where} -> HTTP {e.code}: {detail}") from None
+        except OSError as e:       # URLError, timeouts, connection resets
+            raise ProviderError(f"{where} -> {e}") from None
+        try:
+            body = json.loads(raw) if raw else {}
+        except ValueError:
+            raise ProviderError(f"{where} -> non-JSON response: {raw[:200]!r}") from None
+        if not isinstance(body, dict):
+            raise ProviderError(f"{where} -> unexpected response: {str(body)[:200]}")
+        return body
 
     def place_call(self, role, to_number, variables, metadata):
         agent = self.cfg["agents"][role]
@@ -123,6 +133,8 @@ class SarvamProvider:
             body["webhook_config"] = {"url": c["webhook_url"], "metadata": metadata or {}}
         r = self._request("POST", f"{self.BASE}/outbounds/v1/orgs/{c['org_id']}/workspaces/"
                                   f"{c['workspace_id']}/outbounds", body)
+        if not r.get("attempt_id"):
+            raise ProviderError(f"Sarvam create call -> no attempt_id in response: {str(r)[:200]}")
         self._placed[r["attempt_id"]] = (role, datetime.now(timezone.utc))
         return r["attempt_id"]
 
@@ -138,7 +150,7 @@ class SarvamProvider:
         })
         r = self._request("GET", f"{self.BASE}/analytics/v1/{c['org_id']}/{c['workspace_id']}/"
                                  f"{c['agents'][role]['app_id']}/attempts?{q}")
-        return next((i for i in r.get("items", []) if i.get("attempt_id") == attempt_id), None)
+        return next((i for i in r.get("items") or [] if isinstance(i, dict) and i.get("attempt_id") == attempt_id), None)
 
     def wait(self, attempt_id):
         deadline, final_seen = time.time() + self.timeout_s, None

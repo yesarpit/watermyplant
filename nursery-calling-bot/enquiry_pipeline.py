@@ -11,9 +11,10 @@
      the available gardeners.
 
 Providers (--provider):
-  sarvam  (default) Sarvam Voice Agents -- Indian voices, Indian number rented without a card.
+  sarvam  (default) Sarvam Voice Agents -- Indian voices; needs a connected number (FREE_PATHS.md).
   retell  Retell AI (fallback; needs a card for a number).
   mock    No calls, no spend. Scripted outcomes (--scenario file.json, or a built-in happy path).
+          For the full one-command demo (intake endpoint + report) run ./demo.py.
 
 Modes (real providers only):
   default   TEST: every call rings TEST_NUMBER (your own phone) instead of the real number, max 1 gardener.
@@ -113,7 +114,9 @@ def validate_enquiry(enq, today=None):
                 errors.append(f"{k} must be a number")
     if not e.get("id") and e.get("name"):
         e["id"] = datetime.now(IST).strftime("%Y%m%d-%H%M%S") + "-" + \
-            (re.sub(r"\W+", "-", str(e["name"]).lower()).strip("-") or "enquiry")
+            (re.sub(r"[^a-z0-9]+", "-", str(e["name"]).lower()).strip("-")[:40] or "enquiry")
+    if e.get("id") and not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,79}", str(e["id"])):
+        errors.append("id may only contain letters, digits, '-' and '_'")   # it becomes a file name
     return e, errors
 
 
@@ -519,7 +522,7 @@ def whatsapp_drafts(enq, job, offers):
         text = (f"Hi {enq['name']}, this is Water My Plant. We found gardeners near {job['customer_area']} "
                 f"for {job['start_date']} to {job['end_date']} ({job['visit_frequency'].replace('_', ' ')}):\n"
                 + "\n".join(lines) +
-                "\nReply 1, 2 or 3 to book. We confirm the gardener once the booking is paid by UPI. "
+                f"\nReply {' or '.join(str(i) for i in range(1, len(lines) + 1))} to book. We confirm the gardener once the booking is paid by UPI. "
                 "Reply STOP if you don't want further messages.")
     drafts.append({"who": "customer", "to": enq["phone"], "text": text, "link": wa_link(enq["phone"], text)})
     for o in priced[:3]:

@@ -101,7 +101,7 @@ def actuals(runs_dir):
         print(f"  {n:3d}  {r}")
 
 
-def main():
+def build_parser():
     a = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     a.add_argument("--runs", help="summarise actual run logs instead of the model")
     a.add_argument("--customer-connect", type=float, default=0.6)
@@ -121,7 +121,11 @@ def main():
     a.add_argument("--min-revenue", type=int, default=99, help="minimum we earn per booking (booking fee)")
     a.add_argument("--booking-rate", type=float, default=0.4, help="share of customers with an offer who pay")
     a.add_argument("--fixed-monthly", type=int, default=500, help="number rental etc. (INR/month, estimate)")
-    p = a.parse_args()
+    return a
+
+
+def main():
+    p = build_parser().parse_args()
     if p.runs:
         actuals(p.runs)
     else:

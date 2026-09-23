@@ -7,10 +7,15 @@ launch-ready, measurable, and able to support a profitable first transaction** a
 number exists, at **zero cost until then** (founder, 2026-09-23: mocks, free tiers and BYO/free
 options only; no card).
 
+**Technical POC: complete (2026-09-23).** `python3 demo.py` runs the whole flow on this machine
+at ₹0. There are 56 tests, including mocked Sarvam contract and error tests. Live PSTN
+validation is a separate founder-review item (see the bottom of FREE_PATHS.md). No number is
+rented, and no wallet is topped up.
+
 It counts as done when all of these are true:
 1. Every step runs end to end against a mock provider with no network, and is covered by automated
    tests. That covers validation, ranking, customer and gardener outcomes, consent and do-not-call,
-   retries, failure recovery, logs and the WhatsApp handoff. **Done: 31 tests.**
+   retries, failure recovery, logs and the WhatsApp handoff. **Done: 31 pipeline tests (56 in total with intake, demo and Sarvam contract tests).**
 2. The provider is swappable, and the chosen provider (Sarvam) needs only config (`sarvam.json` and
    the API key) plus a phone number, with no code change. **Done. The adapter is untested live.**
 3. Each enquiry writes a resumable state file and an event log, with per-call cost, minutes and
@@ -18,6 +23,11 @@ It counts as done when all of these are true:
 4. Each quote the customer sees includes our fee, with a booking-fee floor, so any booked job makes
    money after the calls it took. **Done: fee = max(₹30, 20%) per visit, and at least ₹99 per booking.**
 5. There is a launch checklist whose only open blocker is the phone number. **Done: LAUNCH_CHECKLIST.md.**
+6. A single command shows everything at zero cost: intake endpoint → deterministic mocked calls →
+   event log, outcome, WhatsApp drafts and unit-economics report. **Done: `demo.py`, see POC_PLAN.md.**
+7. Mocked Sarvam contract and error tests: the request shape matches the published API
+   reference, and HTTP, network and malformed-response failures pause the run instead of
+   crashing it. **Done: `tests/test_sarvam_contract.py`.**
 
 ## Decisions
 
@@ -48,14 +58,18 @@ It counts as done when all of these are true:
    per-minute rates.
 5. Wrote SARVAM_SETUP.md, LAUNCH_CHECKLIST.md, UNIT_ECONOMICS.md and ALTERNATIVES.md.
 6. Ran a secret scan, gitignored personal data (roster, prospects, runs, do-not-call list,
-   `sarvam.json`), and committed the code and docs under `nursery-calling-bot/` only. Not pushed:
-   this repo deploys the public site.
+   `sarvam.json`), and committed the code and docs under `nursery-calling-bot/` only.
+7. (Manager directive, 06:01Z) Wrote POC_PLAN.md first, then added `intake.py`, `demo.py` with
+   synthetic fixtures, the Sarvam contract/error tests and FREE_PATHS.md. Hardened the Sarvam
+   adapter so that non-JSON bodies, connection resets and a missing `attempt_id` raise
+   `ProviderError`. Enquiry ids are validated because they become file names. Dropped the rental
+   recommendation. Pushed.
 
 ## Ranked next steps
 
 | # | Step | Cost | Owner | Unblocks |
 |---|---|---|---|---|
-| 1 | **Get a phone number.** Sarvam "Rent from Sarvam": individual KYC, paid from the wallet, no card. Or connect an existing Exotel/Vobiz account. | number rent (price shown in catalog) | founder | everything live |
+| 1 | **Founder decision on live PSTN validation**: (a) connect an existing Exotel/Vobiz/Twilio/Smartflo/Pulse/Intalk account the founder already owns, at ₹0 extra, or (b) explicitly lift the zero-spend constraint (for example, a Sarvam-rented number). Renting is **not** zero-cost. See FREE_PATHS.md. | ₹0 for (a) | founder | everything live |
 | 2 | Create a Sarvam account, build both agents from SARVAM_SETUP.md, and test them in the browser "Test agent" plus Sarvam Tests (opt-out, Kannada, no price). | free (₹100 credits) | founder or agent, once account access exists | adapter live test |
 | 3 | First TEST-mode run (`enquiry_pipeline.py` without `--live`, rings 8087404471). Play both roles and check that the extracted variables land in `runs/<id>.json`. | a few rupees of credit | founder | confidence in the Sarvam adapter |
 | 4 | Enrich `gardeners.csv` with lat/lng and 10–15 more gardeners around 560056, 560060 and 560098. Ranking then uses real distance and P(offer) rises. | free | agent (desk research) | P(≥1 offer) above 55% |

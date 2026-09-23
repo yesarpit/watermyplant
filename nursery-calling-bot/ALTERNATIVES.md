@@ -6,13 +6,15 @@ added as an adapter without touching the pipeline.
 
 | Option | Card needed? | Indian number? | Per-minute (INR) | Fit |
 |---|---|---|---|---|
-| **Sarvam Voice Agents + Rent from Sarvam** (chosen) | **No**: wallet + individual KYC | Yes (Vobiz-managed) | ~3 est. | Indian voices, NDNC screening, no-code agents, REST outbound + attempts API. [docs](https://docs.sarvam.ai/conversations/deploy/telephony/rent-from-sarvam) |
-| Sarvam Voice Agents + **BYO Exotel / Vobiz / Twilio / Smartflo / Pulse / Intalk** | depends on that provider | Yes | telephony billed by that provider | Use this if the founder already has one of these accounts. [docs](https://docs.sarvam.ai/conversations/deploy/telephony/bring-your-own) |
+| Sarvam Voice Agents + Rent from Sarvam (**not zero-cost**: wallet-paid; only if the founder lifts the zero-spend constraint) | No card, but wallet + individual KYC | Yes (Vobiz-managed) | ~3 est. | Indian voices, NDNC screening, no-code agents, REST outbound + attempts API. [docs](https://docs.sarvam.ai/conversations/deploy/telephony/rent-from-sarvam) |
+| Sarvam Voice Agents + **BYO Exotel / Vobiz / Twilio / Smartflo / Pulse / Intalk** (zero-spend only if the founder already has the account) | depends on that provider | Yes | telephony billed by that provider | Use this if the founder already has one of these accounts. [docs](https://docs.sarvam.ai/conversations/deploy/telephony/bring-your-own) |
 | Self-hosted **Pipecat or LiveKit Agents + Sarvam STT/TTS/LLM APIs + Plivo/Exotel SIP** | Sarvam: no (₹100 free credits); SIP provider: usually a prepaid wallet | Yes | ~2.3 est. (Plivo India ₹0.60/min [published]) | Cheapest per minute and full control, but we must build turn-taking and host a server. Sarvam publishes guides for [Pipecat](https://docs.sarvam.ai/api/integration/build-voice-agent-with-pipecat) and [LiveKit](https://docs.sarvam.ai/api/integration/build-voice-agent-with-live-kit). Worth it at around 500+ enquiries a month. |
 | Retell AI + BYO SIP trunk (Plivo/Exotel/DIDWW) | Retell: yes, for credits beyond $10 | Yes via SIP | ~7–10 | Retell charges nothing extra for SIP ([pricing](https://www.retellai.com/pricing)), but its voice and LLM cost stays about 3× Sarvam's. Fallback only. |
 | Retell-rented number | **Yes** | No: US numbers | ~10 + international | Rejected: needs a card, and Indian recipients see a foreign caller ID. |
 
 ## Zero-cost ways to keep testing before any number
+
+FREE_PATHS.md has the full matrix and status; the short version:
 
 1. **Mock provider**: `./enquiry_pipeline.py --provider mock ...` and the test suite. Costs ₹0.
 2. **Sarvam "Test agent"**: a browser voice call to each agent. It uses free credits and needs no number.

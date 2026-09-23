@@ -1,7 +1,7 @@
 {
   "org_id": "from the dashboard URL",
   "workspace_id": "from the dashboard URL",
-  "connection_id": "Deploy -> Phone Numbers -> your connection (after renting or connecting a number)",
+  "connection_id": "Deploy -> Phone Numbers -> your connection (after connecting a BYO number; see FREE_PATHS.md)",
   "agent_phone_number": "+9180XXXXXXXX",
   "webhook_url": "",
   "agents": {

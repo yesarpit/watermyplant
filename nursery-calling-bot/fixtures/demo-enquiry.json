@@ -1,0 +1,11 @@
+{
+  "id": "demo-0001",
+  "name": "Demo Customer",
+  "phone": "90000 00099",
+  "locality": "Jagajyothi Layout",
+  "pincode": "560056",
+  "start_date": "2026-10-02",
+  "end_date": "2026-10-06",
+  "notes": "20 pots on a balcony, 2 hanging baskets",
+  "consent_source": "website_form"
+}

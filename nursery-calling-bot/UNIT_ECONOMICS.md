@@ -15,7 +15,8 @@ unverified and should be replaced from the first 5 live runs.
 | Retell, GPT-4.1 | 10.1 | [PUBLISHED] $0.055 voice + $0.045 LLM + $0.015 telephony = $0.115 × ₹88 |
 | Retell, GPT-4.1-mini | 7.3 | [PUBLISHED] $0.055 + $0.0128 + $0.015 |
 
-Fixed costs: number rental [ESTIMATE ₹500/month]. The Sarvam catalog shows the real price.
+Fixed costs: number rental [ESTIMATE ₹500/month]. The Sarvam catalog shows the real price. This only applies if the zero-spend
+constraint is lifted; a founder-owned BYO number (FREE_PATHS.md, path 7) adds no fixed cost.
 Retell charges $2/month for a US number and $10 for a verified one [PUBLISHED], but a US number
 calling Indian mobiles is a poor fit anyway.
 
