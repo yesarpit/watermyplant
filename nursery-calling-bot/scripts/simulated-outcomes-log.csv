@@ -1,0 +1,7 @@
+call_id,prospect_id,timestamp,outcome_code,qualification_level,gardener_name,gardener_phone,price_amount,price_unit,confirm_back_completed,call_duration_seconds,notes,requires_founder_followup
+SIM-001,,2026-09-17,QUALIFIED_COMPLETE,L4,Ramesh,9876543210,175,per_visit,true,,"Happy path; price given as a range (150-200), midpoint logged.",true
+SIM-002,,2026-09-17,NOT_QUALIFIED,L1,,,,,false,,"Clean decline, no re-push.",false
+SIM-003,,2026-09-17,DEFERRED,L2,Suresh,,,,false,,"Name given, number promised later -- goes to callback queue, not auto-retried.",true
+SIM-004,,2026-09-17,QUALIFIED_INCOMPLETE,L3,,,500,per_visit,false,,"Price above expected range; bot correctly avoided committing; nursery ended call before name/number captured.",false
+SIM-005,,2026-09-17,DECLINED_HOSTILE,L1,,,,,false,,"Hostile, immediate hangup -- flag do_not_call on prospect row.",false
+SIM-006,,2026-09-17,VOICEMAIL,L0,,,,,false,,"No voicemail pitch left, per script.",false

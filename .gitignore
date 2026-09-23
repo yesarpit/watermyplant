@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.tmp
+
+# nursery-calling-bot: personal/third-party data and local config
+nursery-calling-bot/gardeners.csv
+nursery-calling-bot/prospects/
+nursery-calling-bot/sarvam.json
+nursery-calling-bot/runs/
+nursery-calling-bot/do-not-call.txt

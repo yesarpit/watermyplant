@@ -1,0 +1,11 @@
+{
+  "org_id": "from the dashboard URL",
+  "workspace_id": "from the dashboard URL",
+  "connection_id": "Deploy -> Phone Numbers -> your connection (after renting or connecting a number)",
+  "agent_phone_number": "+9180XXXXXXXX",
+  "webhook_url": "",
+  "agents": {
+    "customer": {"app_id": "customer agent id", "app_version": 1},
+    "gardener": {"app_id": "gardener agent id", "app_version": 1}
+  }
+}

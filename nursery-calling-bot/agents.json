@@ -1,0 +1,10 @@
+{
+  "customer": {
+    "llm_id": "llm_b4af0ca0197f163833ffd416e09c",
+    "agent_id": "agent_65324cb507cc5064ec1bb8337a"
+  },
+  "gardener": {
+    "llm_id": "llm_ae6b53c0f478d7b1e525cb0ec3ea",
+    "agent_id": "agent_b5b65c36e56ce183f8ccebaaa1"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "default": "no_answer",
+  "script": {
+    "+919876543210": ["busy", {"connected": {"still_needs_service": true, "start_date": "2026-10-02", "end_date": "2026-10-06",
+      "area": "Jagajyothi Layout", "landmark": "near the BDA park", "plant_count": "20 pots, balcony",
+      "visit_frequency": "alternate_days", "access_arrangement": "key with security", "budget_per_visit_inr": 150,
+      "do_not_call": false}, "minutes": 2.5}],
+    "+919000000001": ["no_answer", {"connected": {"available": true, "can_start_on_date": true, "price_per_visit_inr": 100,
+      "contact_name": "Anil", "contact_number": "", "do_not_call": false}, "minutes": 1.5}],
+    "+919000000002": [{"connected": {"available": false, "referral": "Green Nursery, Kengeri", "do_not_call": false}, "minutes": 1.0}],
+    "+919000000003": [{"connected": {"do_not_call": true}, "minutes": 0.5}]
+  }
+}
