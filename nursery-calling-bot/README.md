@@ -24,7 +24,8 @@ never dialled again.
 | Piece | State |
 |---|---|
 | One-command demo: intake endpoint → mocked calls → event log, outcome, WhatsApp drafts, unit economics | ✅ `python3 demo.py` (deterministic) |
-| Pipeline, intake, Sarvam contract/error tests: 56 tests | ✅ `python3 -m unittest discover -s tests` |
+| Intake auto-trigger: website form (`/enquire`) + WhatsApp Cloud API webhook (signed) → queue → pipeline runs automatically (mock by default, TEST mode only) | ✅ localhost; public URL and Meta app are founder steps |
+| Pipeline, intake, auto-trigger, Sarvam contract/error tests: 77 tests | ✅ `python3 -m unittest discover -s tests` |
 | Sarvam adapter (primary) | ✅ request/response shape pinned to Sarvam's published API reference by mocked contract tests; **not yet run live** |
 | Sarvam agents | spec ready in SARVAM_SETUP.md; building them needs a free Sarvam account (founder) |
 | Retell adapter + 2 agents (fallback) | agents exist; Retell needs a card for a number |
@@ -40,9 +41,13 @@ UNIT_ECONOMICS.md for cost per enquiry.
 # The whole flow in one command: no network, no account, no spend. Writes demo-output/summary.md
 python3 demo.py
 
-# Local intake endpoint (127.0.0.1 only): POST /enquiries validates and queues to queue/<id>.json
+# Intake server (127.0.0.1 only). Every accepted enquiry is queued to queue/<id>.json and run
+# through the pipeline automatically (default --auto-run mock: scripted calls, no spend)
 ./intake.py --port 8765
-curl -s localhost:8765/enquiries -d @fixtures/demo-enquiry.json   # -> 202 {"id": "demo-0001", ...}
+open http://localhost:8765/enquire                                # the website form (call-consent box)
+curl -s localhost:8765/enquiries -d @fixtures/demo-enquiry.json   # JSON API -> 202 {"id": "demo-0001", ...}
+# WhatsApp: set WMP_WA_APP_SECRET + WMP_WA_VERIFY_TOKEN in ../.env and point a Meta app's webhook
+# at <public url>/webhooks/whatsapp. Queue only, run by hand: ./intake.py --auto-run off, then
 ./enquiry_pipeline.py --provider mock --file queue/demo-0001.json
 
 # No calls, no spend: built-in happy-path mock, or a scripted scenario
@@ -84,13 +89,15 @@ Result codes in `runs/<id>.json`:
 ## Files
 
 - `demo.py`: the one-command zero-cost demo; `fixtures/` holds its synthetic enquiry, roster and call script
-- `intake.py`: local enquiry intake endpoint (stdlib HTTP server)
+- `intake.py`: intake server: website form, JSON API, WhatsApp webhook, auto-run worker (stdlib HTTP server)
+- `whatsapp_inbound.py`: WhatsApp webhook signature check and message → enquiry parsing (held until call consent)
 - `enquiry_pipeline.py`: the orchestrator (stdlib Python only)
 - `providers.py`: the `SarvamProvider`, `RetellProvider` and `MockProvider` adapters, all returning
   one outcome shape
 - `tests/test_pipeline.py`: provider-mocked end-to-end tests
 - `tests/test_sarvam_contract.py`: Sarvam request/response contract and error handling over a fake transport
 - `tests/test_intake_demo.py`: intake endpoint and demo (complete and deterministic output)
+- `tests/test_autotrigger.py`: form, WhatsApp webhook, auto-run, abuse guards, message parsing
 - `unit_economics.py`: the funnel and cost model
 - `prompts/customer.md`, `prompts/gardener.md`: the agent scripts, shared by both providers
 - `SARVAM_SETUP.md`, `sarvam.example.json`: how to build the Sarvam agents, and the config

@@ -1,0 +1,21 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [{
+    "id": "000000000000000",
+    "changes": [{
+      "field": "messages",
+      "value": {
+        "messaging_product": "whatsapp",
+        "metadata": {"display_phone_number": "910000000000", "phone_number_id": "000000000000001"},
+        "contacts": [{"profile": {"name": "Demo Customer"}, "wa_id": "919000000099"}],
+        "messages": [{
+          "from": "919000000099",
+          "id": "wamid.DEMO0001",
+          "timestamp": "1790150400",
+          "type": "text",
+          "text": {"body": "Hi, I want to join the plant-care pilot.\nLocality: Jagajyothi Layout, 560056\nPlants: 11-30\nAway 2 Oct to 6 Oct. Ok to call me on this number."}
+        }]
+      }
+    }]
+  }]
+}

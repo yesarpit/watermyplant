@@ -554,6 +554,19 @@ def happy_path_mock(gardeners_path, pincode):
     return script
 
 
+def default_mock(gardeners_path, enq):
+    """MockProvider for an enquiry with no scenario file: happy_path_mock, plus the customer
+    answering and confirming what they asked for."""
+    provider = P.MockProvider(happy_path_mock(gardeners_path, str(enq.get("pincode", "560056"))))
+    if enq.get("phone"):
+        provider.script[e164(enq["phone"])] = [P.answered({
+            "still_needs_service": True, "start_date": enq.get("start_date"), "end_date": enq.get("end_date"),
+            "area": enq.get("locality"), "landmark": "near the BDA park", "plant_count": enq.get("notes") or "20 pots",
+            "visit_frequency": "alternate_days", "access_arrangement": "key with security",
+            "budget_per_visit_inr": 150, "do_not_call": False}, minutes=2.4)]
+    return provider
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--file", help="enquiry JSON (name, phone, locality, pincode, start_date, end_date, "
@@ -590,14 +603,7 @@ def main():
         sys.exit(f"{roster.name} missing -- copy gardeners.example.csv to gardeners.csv and add real gardeners")
     try:
         if a.provider == "mock":
-            provider = P.mock_from_file(a.scenario) if a.scenario else \
-                P.MockProvider(happy_path_mock(roster, str(enq.get("pincode", "560056"))))
-            if not a.scenario and enq.get("phone"):
-                provider.script[e164(enq["phone"])] = [P.answered({
-                    "still_needs_service": True, "start_date": enq.get("start_date"), "end_date": enq.get("end_date"),
-                    "area": enq.get("locality"), "landmark": "near the BDA park", "plant_count": enq.get("notes") or "20 pots",
-                    "visit_frequency": "alternate_days", "access_arrangement": "key with security",
-                    "budget_per_visit_inr": 150, "do_not_call": False}, minutes=2.4)]
+            provider = P.mock_from_file(a.scenario) if a.scenario else default_mock(roster, enq)
         elif a.provider == "sarvam":
             provider = P.SarvamProvider()
         else:
