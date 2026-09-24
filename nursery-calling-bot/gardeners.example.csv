@@ -1,5 +1,0 @@
-name,phone,pincode,locality,lat,lng,status,source_id,notes
-Example Nursery,+919000000001,560056,Nagadevanahalli,12.9515,77.5070,active,1,Public listing; confirm trade name on first call
-Example Gardener,+919000000002,560060,Kengeri,,,active,2,Referral from Example Nursery
-Third Nursery,+919000000003,560098,Rajarajeshwari Nagar,,,active,3,Asked us to call after Diwali
-Paused Nursery,+919000000004,560098,Rajarajeshwari Nagar,,,paused,4,Asked us to call after Diwali
