@@ -8,7 +8,13 @@ nursery-calling-bot/prospects/
 nursery-calling-bot/sarvam.json
 nursery-calling-bot/runs/
 nursery-calling-bot/do-not-call.txt
+nursery-calling-bot/held-numbers.txt
 nursery-calling-bot/followups-done.txt
 nursery-calling-bot/queue/
 nursery-calling-bot/demo-output/
 nursery-calling-bot/readiness-output/
+nursery-calling-bot/acceptance-output/
+nursery-calling-bot/acceptance-output-*/
+nursery-calling-bot/crash-output/
+nursery-calling-bot/outage-output/
+nursery-calling-bot/bookings/

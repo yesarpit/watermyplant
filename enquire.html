@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request a Gardener | watermyplant.in</title>
+    <meta name="description" content="Going away? Ask for a gardener to water your plants in Jagajyothi Layout, Bangalore (560056).">
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="842bdf3b-6038-4ca8-a09e-0af84906dc20"></script>
+    <style>
+        .join { max-width: 640px; margin: 0 auto; padding: 40px 16px 60px; }
+        .join h1 { font-family: 'Playfair Display', serif; margin-bottom: 12px; }
+        .join .cta-button { display: inline-block; margin-top: 16px; }
+    </style>
+</head>
+<body>
+<main class="join">
+    <h1>Request a gardener</h1>
+    <p id="status">Opening the request form&hellip;</p>
+    <div id="offline" hidden>
+        <p>The request form is offline right now. You can still tell us you're interested on WhatsApp.</p>
+        <a class="cta-button primary-cta" href="join.html">Continue on WhatsApp</a>
+    </div>
+</main>
+<script>
+    // Set by nursery-calling-bot/public_intake.sh to the current Cloudflare quick-tunnel URL of intake.py.
+    var INTAKE = "https://gaps-herbal-delivers-sole.trycloudflare.com";
+    function offline() {
+        document.getElementById('status').hidden = true;
+        document.getElementById('offline').hidden = false;
+    }
+    if (!/^https:\/\/[a-z0-9-]+\.trycloudflare\.com$/.test(INTAKE)) {
+        offline();
+    } else {
+        var ctl = window.AbortController ? new AbortController() : null;
+        var timer = setTimeout(function () { if (ctl) ctl.abort(); offline(); }, 5000);
+        fetch(INTAKE + '/health', { cache: 'no-store', signal: ctl && ctl.signal })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (b) {
+                clearTimeout(timer);
+                if (b && b.ok === true) location.replace(INTAKE + '/enquire'); else offline();
+            })
+            .catch(function () { clearTimeout(timer); offline(); });
+    }
+</script>
+</body>
+</html>
