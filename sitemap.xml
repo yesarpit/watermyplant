@@ -30,4 +30,16 @@
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
    </url>
+   <url>
+      <loc>https://www.watermyplant.in/kengeri-plant-care.html</loc>
+      <lastmod>2026-09-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
+   <url>
+      <loc>https://www.watermyplant.in/rr-nagar-plant-care.html</loc>
+      <lastmod>2026-09-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+   </url>
 </urlset>
