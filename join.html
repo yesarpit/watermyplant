@@ -51,6 +51,9 @@
 </main>
 <script>
     var ref = (new URLSearchParams(location.search).get('ref') || 'direct').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'direct';
+    var hint = { 'own-city-bangalore': 'e.g. HSR Layout, Bangalore 560102', 'own-city-mumbai': 'e.g. Andheri West, Mumbai 400053',
+                 'own-city-delhi-ncr': 'e.g. Dwarka, Delhi 110075' }[ref];
+    if (hint) document.getElementById('locality').placeholder = hint;
     document.getElementById('optin').addEventListener('submit', function (e) {
         e.preventDefault();
         var v = function (id) { return document.getElementById(id).value.trim(); };
