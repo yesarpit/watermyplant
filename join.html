@@ -18,13 +18,23 @@
         .join .consent input { width: auto; margin-top: 4px; }
         .join button { margin-top: 24px; width: 100%; cursor: pointer; border: 0; }
         .join .fine { font-size: .85rem; color: var(--text-light); margin-top: 16px; }
+        .join .trust { list-style: none; padding: 0; margin: 14px 0 0; font-size: .95rem; }
+        .join .trust li { margin: 4px 0; }
+        .join .next { background: rgba(74, 122, 56, 0.1); border-left: 4px solid var(--primary-color); padding: 14px 18px; margin-top: 28px; }
+        .join .next h2 { font-size: 1.1rem; margin-bottom: 8px; }
+        .join .next ol { padding-left: 20px; margin: 0; }
     </style>
 </head>
 <body>
 <main class="join">
     <h1>Going away? Your plants stay happy.</h1>
     <p>We water and care for your plants while you're away, <strong>anywhere in India</strong>.
-       Tell us a bit and continue on WhatsApp. We confirm a gardener near you before anything is booked, and we only reply to messages you send.</p>
+       Four quick answers, then you send them to us on WhatsApp yourself.</p>
+    <ul class="trust">
+        <li>✅ No payment now, and nothing is booked until you say yes.</li>
+        <li>✅ If we don't have a gardener near you yet, we tell you straight away.</li>
+        <li>✅ We only reply to messages you send us. Reply STOP any time.</li>
+    </ul>
     <form id="optin">
         <label for="locality">Your locality / pincode</label>
         <input id="locality" required placeholder="e.g. Andheri West, Mumbai 400053">
@@ -46,7 +56,15 @@
             I agree to be contacted on WhatsApp about plant sitting. I can say STOP any time.</label>
         <button type="submit" class="cta-button primary-cta" data-umami-event="optin-click">Continue on WhatsApp</button>
     </form>
-    <p>Already know your travel dates? <a href="enquire.html" data-umami-event="enquire-click">Request a gardener directly</a> and we'll call you to confirm.</p>
+    <div class="next">
+        <h2>What happens next</h2>
+        <ol>
+            <li>WhatsApp opens with your answers filled in. You press send.</li>
+            <li>We reply on WhatsApp to ask your dates and anything we need about your plants.</li>
+            <li>We look for a vetted gardener near you and confirm the gardener, visits and price with you before anything is booked. If there's no one near you yet, we say so.</li>
+        </ol>
+    </div>
+    <p style="margin-top: 20px;">Already know your travel dates? <a href="enquire.html" data-umami-event="enquire-click">Request a gardener directly</a> and we'll call you to confirm.</p>
     <p class="fine">No payment now. Your details go only into a WhatsApp message you send yourself. To opt out at any time, reply STOP and we will delete your details.</p>
 </main>
 <script>
