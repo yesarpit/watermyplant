@@ -96,4 +96,22 @@
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
    </url>
+   <url>
+      <loc>https://www.watermyplant.in/blog-balcony-plants-45-degrees.html</loc>
+      <lastmod>2026-09-30</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.watermyplant.in/blog-diwali-winter-trips-plants.html</loc>
+      <lastmod>2026-09-30</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
+   <url>
+      <loc>https://www.watermyplant.in/blog-plant-sitter-vs-neighbour-vs-self-watering.html</loc>
+      <lastmod>2026-09-30</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+   </url>
 </urlset>
