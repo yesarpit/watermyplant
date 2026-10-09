@@ -6,6 +6,8 @@
     <title>Plant-Watering Work for Gardeners &amp; Nurseries | watermyplant.in</title>
     <meta name="description" content="Gardeners and nurseries anywhere in India: get plant-watering jobs near you while families travel. You set your own per-visit rate and say yes or no to each job. Message us first on WhatsApp; we never call a gardener who hasn't asked.">
     <link rel="canonical" href="https://www.watermyplant.in/for-gardeners.html">
+    <!-- hreflang:start -->
+    <!-- hreflang:end -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -29,6 +31,8 @@
 </head>
 <body>
 <main class="join">
+    <!-- languages:start -->
+    <!-- languages:end -->
     <h1>Gardeners &amp; nurseries: plant-watering work near you</h1>
     <p>Families across India go away for a few days and need someone to water their plants. We find those
        customers and match each one with a gardener <strong>near their home</strong>. If you or your team can take
@@ -95,7 +99,7 @@
         var msg = 'Hi, I am a gardener and I would like plant-watering jobs near me.\n' +
             'Name: ' + v('name') + '\nArea: ' + v('area') + '\nTravel: ' + v('reach') +
             (v('rate') ? '\nRate/visit: ' + v('rate') : '') + '\nLanguage: ' + v('lang') +
-            '\nI am asking Water My Plant to call or message me about jobs. [ref:' + ref + ']';
+            '\nI am asking Water My Plant to call or message me about jobs. [ref:' + ref + '] [src:' + src + ']';
         if (window.umami) { try { umami.track('gardener-optin-submit', { ref: ref, src: src }); } catch (x) {} }
         location.href = 'https://wa.me/918087404471?text=' + encodeURIComponent(msg);
     });

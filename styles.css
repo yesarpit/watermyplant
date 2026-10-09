@@ -119,6 +119,18 @@ h1, h2, h3, h4 {
     padding: 10px 24px;
 }
 
+.nav-gardener {
+    margin: 0 16px 0 auto;
+    color: var(--text-dark);
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.nav-gardener:hover {
+    color: var(--primary-light);
+}
+
 /* Hero Section */
 .hero {
     display: flex;
@@ -598,6 +610,10 @@ footer {
     color: rgba(255,255,255,0.6);
 }
 
+.brand a {
+    color: var(--accent-color);
+}
+
 .contact-info h4 {
     font-family: 'Outfit', sans-serif;
     margin-bottom: 15px;
@@ -672,5 +688,16 @@ footer {
     .nav-cta {
         padding: 8px 16px;
         font-size: 0.85rem;
+    }
+    /* no room beside the logo and the button on a phone: the link takes its own row */
+    .navbar {
+        flex-wrap: wrap;
+    }
+    .nav-gardener {
+        order: 3;
+        flex-basis: 100%;
+        margin: 8px 0 0;
+        font-size: 0.85rem;
+        text-align: center;
     }
 }
